@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import './index.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 import './darkmode.css';
 import { ThemeProvider } from './components/ThemeContext';
 import { Toaster } from "sonner";
