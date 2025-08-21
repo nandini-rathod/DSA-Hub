@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import {toast} from "sonner";
+import { toast } from 'sonner';
 
 const Home = ({ setView }) => {
   const navigate = useNavigate();
-  const handleBeginnerClick = (level) => {
+
+  const handleLevelClick = (level) => {
     navigate(`/${level}`);
     toast.success(`Master the ${level} level questions with our comprehensive guide!`);
   };
+
   return (
     <div className="home-container mt-10">
       {/* ───────── Hero ───────── */}
-       {/* <Header /> */}
       <header className="home-header">
         <h1 className="main-heading">Let&apos;s Do DSA Together 🚀</h1>
         <p className="sub-heading">
@@ -38,7 +39,7 @@ const Home = ({ setView }) => {
             Start your DSA journey with hand-picked beginner-level problems and
             concepts explained simply.
           </p>
-          <button onClick={() => handleBeginnerClick('Begineer')}>Explore Beginner</button>
+          <button onClick={() => handleLevelClick('Beginner')}>Explore Beginner</button>
         </div>
 
         <div className="card advanced">
@@ -47,7 +48,7 @@ const Home = ({ setView }) => {
             Take your skills up a notch. Dive into complex patterns, DP,
             graphs, and real interview problems.
           </p>
-          <button onClick={() => handleBeginnerClick('Advanced')}>Explore Advanced</button>
+          <button onClick={() => handleLevelClick('Advanced')}>Explore Advanced</button>
         </div>
 
         <div className="card both">
@@ -56,7 +57,7 @@ const Home = ({ setView }) => {
             Don&apos;t want to choose? Explore everything in a guided roadmap
             from beginner to advanced.
           </p>
-          <button onClick={() => handleBeginnerClick('All-in-one')}>Start Full Journey</button>
+          <button onClick={() => handleLevelClick('All-in-one')}>Start Full Journey</button>
         </div>
       </main>
     </div>

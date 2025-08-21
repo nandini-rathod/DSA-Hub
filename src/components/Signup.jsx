@@ -1,18 +1,31 @@
-"use client"
-import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, Github, ArrowRight, Code2, Trophy, Users, Check, X } from 'lucide-react';
-import { FcGoogle } from 'react-icons/fc';
-import './Auth.css';
-import logo from '../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+"use client";
+import React, { useState } from "react";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  Github,
+  ArrowRight,
+  Code2,
+  Trophy,
+  Users,
+  Check,
+  X,
+} from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
+import "./Auth.css";
+import logo from "../assets/logo.png";
 
-const Signup = ({ setIsLoggedIn, switchToLogin }) => {
+const Signup = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -23,94 +36,75 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
     hasUppercase: false,
     hasLowercase: false,
     hasNumber: false,
-    hasSpecial: false
+    hasSpecial: false,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Password validation
-    if (name === 'password') {
+    if (name === "password") {
       setPasswordValidation({
         minLength: value.length >= 8,
         hasUppercase: /[A-Z]/.test(value),
         hasLowercase: /[a-z]/.test(value),
         hasNumber: /\d/.test(value),
-        hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(value)
+        hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(value),
       });
     }
 
-    // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
-    } else if (formData.fullName.trim().length < 2) {
-      newErrors.fullName = 'Name must be at least 2 characters';
-    }
+    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
+    else if (formData.fullName.trim().length < 2)
+      newErrors.fullName = "Name must be at least 2 characters";
 
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
+    if (!formData.email) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Please enter a valid email";
 
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (!Object.values(passwordValidation).every(Boolean)) {
-      newErrors.password = 'Password does not meet requirements';
-    }
+    if (!formData.password) newErrors.password = "Password is required";
+    else if (!Object.values(passwordValidation).every(Boolean))
+      newErrors.password = "Password does not meet requirements";
 
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password';
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
+    if (!formData.confirmPassword)
+      newErrors.confirmPassword = "Please confirm your password";
+    else if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setIsLoading(true);
-
-    // Simulate API call
     setTimeout(() => {
       // setIsLoggedIn(true);
-      navigate('/');
+      navigate("/");
       setIsLoading(false);
     }, 2000);
   };
 
   const handleSocialSignup = (provider) => {
     setIsLoading(true);
-    // Simulate social signup
     setTimeout(() => {
       // setIsLoggedIn(true);
-      navigate('/');
+      navigate("/");
       setIsLoading(false);
     }, 2000);
   };
 
   const PasswordRequirement = ({ met, text }) => (
-    <div className={`password-requirement ${met ? 'met' : ''}`}>
+    <div className={`password-requirement ${met ? "met" : ""}`}>
       {met ? <Check size={14} /> : <X size={14} />}
       <span>{text}</span>
     </div>
@@ -123,10 +117,16 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
         <div className="brand-content signup-compact">
           <div className="brand-header signup-compact">
             <div className="brand-logo signup-compact">
-              <img src={logo} alt="LetsDoDSA Logo" style={{ width: 36, height: 36, borderRadius: '50%' }} />
+              <img
+                src={logo}
+                alt="LetsDoDSA Logo"
+                style={{ width: 36, height: 36, borderRadius: "50%" }}
+              />
             </div>
             <h1 className="brand-title signup-compact">LetsDoDsaTogether</h1>
-            <p className="brand-subtitle signup-compact">Master Data Structures & Algorithms</p>
+            <p className="brand-subtitle signup-compact">
+              Master Data Structures & Algorithms
+            </p>
           </div>
 
           <div className="feature-list signup-compact">
@@ -190,7 +190,7 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
           <div className="social-buttons signup-row">
             <button
               className="social-btn google-btn"
-              onClick={() => handleSocialLogin('google')}
+              onClick={() => handleSocialSignup("google")}
               disabled={isLoading}
             >
               <FcGoogle size={20} />
@@ -199,7 +199,7 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
 
             <button
               className="social-btn github-btn signup-social"
-              onClick={() => handleSocialSignup('github')}
+              onClick={() => handleSocialSignup("github")}
               disabled={isLoading}
             >
               <Github size={20} />
@@ -213,7 +213,6 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
 
           {/* Signup Form */}
           <form onSubmit={handleSubmit} className="auth-form signup-form">
-            {/* Name and Email Row */}
             <div className="signup-row">
               <div className="input-group signup-half">
                 <label htmlFor="fullName">Full Name</label>
@@ -226,11 +225,13 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
                     placeholder="Enter your full name"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className={errors.fullName ? 'error' : ''}
+                    className={errors.fullName ? "error" : ""}
                     disabled={isLoading}
                   />
                 </div>
-                {errors.fullName && <span className="error-message">{errors.fullName}</span>}
+                {errors.fullName && (
+                  <span className="error-message">{errors.fullName}</span>
+                )}
               </div>
 
               <div className="input-group signup-half">
@@ -244,28 +245,29 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={errors.email ? 'error' : ''}
+                    className={errors.email ? "error" : ""}
                     disabled={isLoading}
                   />
                 </div>
-                {errors.email && <span className="error-message">{errors.email}</span>}
+                {errors.email && (
+                  <span className="error-message">{errors.email}</span>
+                )}
               </div>
             </div>
 
-            {/* Password and Confirm Row */}
             <div className="signup-row">
               <div className="input-group signup-half">
                 <label htmlFor="password">Password</label>
                 <div className="input-wrapper">
                   <Lock className="input-icon" size={20} />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     placeholder="Create password"
                     value={formData.password}
                     onChange={handleChange}
-                    className={errors.password ? 'error' : ''}
+                    className={errors.password ? "error" : ""}
                     disabled={isLoading}
                   />
                   <button
@@ -277,7 +279,9 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                {errors.password && <span className="error-message">{errors.password}</span>}
+                {errors.password && (
+                  <span className="error-message">{errors.password}</span>
+                )}
               </div>
 
               <div className="input-group signup-half">
@@ -285,36 +289,54 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
                 <div className="input-wrapper">
                   <Lock className="input-icon" size={20} />
                   <input
-                    type={showConfirmPassword ? 'text' : 'password'}
+                    type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Confirm password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className={errors.confirmPassword ? 'error' : ''}
+                    className={errors.confirmPassword ? "error" : ""}
                     disabled={isLoading}
                   />
                   <button
                     type="button"
                     className="toggle-password"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    onClick={() =>
+                      setShowConfirmPassword(!showConfirmPassword)
+                    }
                     disabled={isLoading}
                   >
                     {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+                {errors.confirmPassword && (
+                  <span className="error-message">{errors.confirmPassword}</span>
+                )}
               </div>
             </div>
 
-            {/* Password Requirements */}
             {formData.password && (
               <div className="password-requirements signup-requirements">
-                <PasswordRequirement met={passwordValidation.minLength} text="At least 8 characters" />
-                <PasswordRequirement met={passwordValidation.hasUppercase} text="One uppercase letter" />
-                <PasswordRequirement met={passwordValidation.hasLowercase} text="One lowercase letter" />
-                <PasswordRequirement met={passwordValidation.hasNumber} text="One number" />
-                <PasswordRequirement met={passwordValidation.hasSpecial} text="One special character" />
+                <PasswordRequirement
+                  met={passwordValidation.minLength}
+                  text="At least 8 characters"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.hasUppercase}
+                  text="One uppercase letter"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.hasLowercase}
+                  text="One lowercase letter"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.hasNumber}
+                  text="One number"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.hasSpecial}
+                  text="One special character"
+                />
               </div>
             )}
 
@@ -322,7 +344,8 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
               <label className="checkbox-wrapper">
                 <input type="checkbox" required />
                 <span className="checkmark"></span>
-                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                I agree to the <a href="#">Terms of Service</a> and{" "}
+                <a href="#">Privacy Policy</a>
               </label>
             </div>
 
@@ -344,16 +367,10 @@ const Signup = ({ setIsLoggedIn, switchToLogin }) => {
 
           <div className="auth-footer">
             <p>
-              Already have an account?{' '}
-              <button
-                className="switch-auth"
-                onClick={switchToLogin}
-                disabled={isLoading}
-              >
-                <Link to="/auth/login">
-                  login
-                </Link>
-              </button>
+              Already have an account?{" "}
+              <Link to="/auth/login" className="switch-auth">
+                login
+              </Link>
             </p>
           </div>
         </div>

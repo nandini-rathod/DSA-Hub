@@ -45,19 +45,13 @@ const Footer = () => {
                 <a href="#" aria-label="LinkedIn">
                   <i className="fab fa-linkedin" />
                 </a>
-                <a href="#" aria-label="Twitter">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a href="#" aria-label="Discord">
-                  <i className="fab fa-discord" />
-                </a>
               </div>
             </div>
           </div>
 
           <div className="footer-bottom">
             <div className="footer-copy">
-              <span>Made with <span role="img" aria-label="love">❤️</span> for aspiring developers</span>
+              <span>Made with <span role="img" aria-label="love">❤️</span> by Nandini</span>
               <span>© {new Date().getFullYear()} Let&apos;s Do DSA. All rights reserved.</span>
             </div>
           </div>

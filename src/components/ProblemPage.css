@@ -1,0 +1,58 @@
+.problem-page {
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  background-color: rgba(75, 207, 244, 0.1);
+  border-radius: 12px;
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.2), inset 1px 1px 6px rgba(0,0,0,0.1);
+}
+
+/* Problem Heading */
+.problem-page h1 {
+  font-family: 'Rubik Puddle', cursive;
+  font-size: 2rem;
+  color: #0074D9;
+  margin-bottom: 1rem;
+}
+
+/* Topic & Level */
+.problem-page h2 {
+  font-size: 1.2rem;
+  color: #004080;
+  margin-bottom: 1.5rem;
+}
+
+/* Description */
+.problem-page p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+/* Back Button */
+.problem-page button {
+  background-color: #FF4136;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.problem-page button:hover {
+  background-color: #FF5733;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-page {
+    padding: 1rem;
+  }
+  .problem-page h1 {
+    font-size: 1.5rem;
+  }
+}
