@@ -1,12 +1,9 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
 
-import CalculateIcon from "@mui/icons-material/Calculate";
+import CalculateIcon from '@mui/icons-material/Calculate';
 import PatternIcon from "@mui/icons-material/Pattern";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
