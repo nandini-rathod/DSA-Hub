@@ -1,104 +1,48 @@
-import { useState } from 'react';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainLayout from "./components/MainLayout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./components/About/Aboutpage";
+import ContactPage from "./components/ContactPage";
+import Panel from "./components/Panel";
+import ProblemPage from "./components/ProblemPage";
+import Roadmap from "./components/Roadmap";
+import AuthPage from "./pages/AuthPage";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
-import Panel from './components/Panel';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ContactPage from './components/ContactPage';
-import Aboutpage from './components/About/Aboutpage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AuthPage from './pages/AuthPage';
-import MainLayout from './components/MainLayout';
-import HomePage from './pages/HomePage';
-
-const App = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [view, setView] = useState('home');
-  // const [authMode, setAuthMode] = useState('login'); 
-
-
-  // auth setup will be done through backened and integrated later using rtk query
-
-  // If user is not logged in, show auth pages
-  // if (!isLoggedIn) {
-  //   return (
-  //     <div className="auth-app">
-  //       <ThemeToggle />
-  //       {authMode === 'login' ? (
-  //         <Login
-  //           setIsLoggedIn={setIsLoggedIn}
-  //           switchToSignup={() => setAuthMode('signup')}
-  //         />
-  //       ) : (
-  //         <Signup
-  //           setIsLoggedIn={setIsLoggedIn}
-  //           switchToLogin={() => setAuthMode('login')}
-  //         />
-  //       )}
-  //     </div>
-  //   );
-  // }
-
-  const appRouter = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      {
-        index: true,
-        element: (
-          <>
-            <HomePage />
-          </>
-        ),
-      },
-      {
-        path: "about",
-        element: <Aboutpage />,
-      },
-      {
-        path: "contact",
-        element: <ContactPage/>,
-      },
-      {
-        path: ":level",
-        element: <Panel/>,
-      },
+      { index: true, element: <HomePage /> },
+      { path: "about", element: <AboutPage /> },
+      { path: "contact", element: <ContactPage /> },
+
+      // Problem page must come before :level
+      { path: ":level/:topic/:problem", element: <ProblemPage /> },
+
+      // Panel for level
+      { path: ":level", element: <Panel /> },
+
+      // Roadmap page
+      { path: "roadmap/:level", element: <Roadmap /> },
+
+      // Authentication routes
       {
         path: "auth",
-        element: (
-          <AuthPage/>
-        ),
+        element: <AuthPage />,
         children: [
           { index: true, element: <Login /> },
           { path: "login", element: <Login /> },
-          { path: "signup", element: <Signup /> }
-        ]
-      }
+          { path: "signup", element: <Signup /> },
+        ],
+      },
     ],
   },
 ]);
-  return (
-    <>
-      {/* {view !== 'home' && (
-        <div className="navbar-wrapper">
-          <Header setView={setView} />
-        </div>
-      )}
-      <ThemeToggle />
-      <div className="min-h-screen w-screen flex items-center justify-center bg-slate-100">
-        {view === 'home' && <Home setView={setView} />}
-        {view === 'beginner' && <Panel setView={setView} tier="Beginner" />}
-        {view === 'advanced' && <Panel setView={setView} tier="Advanced" />}
-        {view === 'contact' && <ContactPage setView={setView} />}
-        {view === 'about' && <Aboutpage setView={setView} />}
-      </div> */}
-      {/* <Navbar/>
-      <Aboutpage/> */}
-      <main>
-        <RouterProvider router={appRouter} />
-      </main>
-    </>
-  );
-};
+
+const App = () => <RouterProvider router={router} />;
 
 export default App;
